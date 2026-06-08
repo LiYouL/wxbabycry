@@ -1,0 +1,36 @@
+<view class="container">
+  <view class="header-desc">
+    播放白噪音有助于宝宝放松和入睡，建议在安静环境中播放，不超过30分钟。
+  </view>
+
+  <scroll-view class="tabs" scroll-x>
+    <view class="tab {{activeCategory === cat ? 'active' : ''}}"
+          wx:for="{{categories}}" wx:key="*this"
+          data-cat="{{item}}" bindtap="switchCategory">
+      {{item}}
+    </view>
+  </scroll-view>
+
+  <view class="noise-list">
+    <view class="noise-item" wx:for="{{items}}" wx:key="id">
+      <view class="noise-icon">{{item.icon}}</view>
+      <view class="noise-name">{{item.name}}</view>
+      <view class="noise-actions">
+        <view class="noise-btn" data-item="{{item}}" bindtap="togglePlay">
+          {{currentTrack && currentTrack.id === item.id && isPlaying ? '⏸' : '▶️'}}
+        </view>
+        <view class="noise-btn {{isLoop ? 'active' : ''}}" bindtap="toggleLoop">🔁</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="player-bar" wx:if="{{currentTrack}}">
+    <text class="playing-name">{{currentTrack.name}}</text>
+    <view class="player-controls">
+      <view class="ctrl-btn" bindtap="togglePlay">
+        {{isPlaying ? '⏸' : '▶️'}}
+      </view>
+      <view class="ctrl-btn {{isLoop ? 'active' : ''}}" bindtap="toggleLoop">🔁</view>
+    </view>
+  </view>
+</view>
