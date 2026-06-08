@@ -1,3 +1,5 @@
+var api = require('./utils/api');
+
 App({
   globalData: {
     apiBase: 'http://localhost:8000/api',
@@ -7,9 +9,41 @@ App({
   },
 
   onLaunch() {
-    const token = wx.getStorageSync('token');
+    var token = wx.getStorageSync('token');
     if (token) {
       this.globalData.token = token;
+      this.loadBabyInfo();
+    } else {
+      this.login();
     }
+  },
+
+  login() {
+    var that = this;
+    wx.login({
+      success(res) {
+        if (res.code) {
+          api.post('/user/login', { code: res.code }).then(function(data) {
+            that.globalData.token = data.token;
+            wx.setStorageSync('token', data.token);
+            that.loadBabyInfo();
+          }).catch(function(err) {
+            console.error('Login failed:', err);
+          });
+        }
+      },
+    });
+  },
+
+  loadBabyInfo() {
+    var that = this;
+    api.get('/baby').then(function(babies) {
+      if (babies.length > 0) {
+        that.globalData.babyId = babies[0].id;
+        that.globalData.babyInfo = babies[0];
+      }
+    }).catch(function(err) {
+      console.error('Load baby failed:', err);
+    });
   },
 });
