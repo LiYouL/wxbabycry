@@ -1,0 +1,21 @@
+<view class="container">
+  <view class="form-group">
+    <text class="label">宝宝昵称</text>
+    <input class="input" data-field="nickname" bindinput="onInput" value="{{nickname}}" />
+  </view>
+  <view class="form-group">
+    <text class="label">生日</text>
+    <picker mode="date" data-field="birthday" bindchange="onInput">
+      <view class="picker">{{birthday || '请选择'}}</view>
+    </picker>
+  </view>
+  <view class="form-group">
+    <text class="label">性别</text>
+    <input class="input" data-field="gender" bindinput="onInput" value="{{gender}}" placeholder="男/女" />
+  </view>
+  <view class="form-group">
+    <text class="label">喂养方式</text>
+    <input class="input" data-field="feedType" bindinput="onInput" value="{{feedType}}" placeholder="母乳/配方奶/混合" />
+  </view>
+  <button class="btn-primary" bindtap="save">保存</button>
+</view>

@@ -1,0 +1,19 @@
+<view class="container">
+  <view class="tabs">
+    <view class="tab {{tab === 'feeding' ? 'active' : ''}}" data-tab="feeding" bindtap="switchTab">喂养</view>
+    <view class="tab {{tab === 'sleep' ? 'active' : ''}}" data-tab="sleep" bindtap="switchTab">睡眠</view>
+    <view class="tab {{tab === 'diaper' ? 'active' : ''}}" data-tab="diaper" bindtap="switchTab">大小便</view>
+  </view>
+
+  <view class="record-list">
+    <view class="record-item" wx:for="{{records}}" wx:key="id">
+      <text>{{item.start_time || item.time}}</text>
+      <text wx:if="{{tab === 'feeding'}}">{{item.amount}}ml {{item.side}}</text>
+      <text wx:if="{{tab === 'sleep'}}">质量: {{item.quality || '未记录'}}</text>
+      <text wx:if="{{tab === 'diaper'}}">{{item.type}} {{item.color}}</text>
+    </view>
+    <view class="no-more" wx:if="{{noMore}}">没有更多了</view>
+  </view>
+
+  <view class="add-btn" bindtap="goAdd">+ 添加记录</view>
+</view>

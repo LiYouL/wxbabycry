@@ -1,0 +1,12 @@
+<view class="container">
+  <view class="vaccine-item" wx:for="{{vaccines}}" wx:key="id">
+    <view class="vaccine-info">
+      <text class="vaccine-name">{{item.name}}</text>
+      <text class="vaccine-date">计划: {{item.scheduled_date}}</text>
+      <text class="vaccine-status {{item.status === '已接种' ? 'done' : ''}}">{{item.status}}</text>
+    </view>
+    <view class="vaccine-action" wx:if="{{item.status === '未接种'}}">
+      <button class="btn-secondary" size="mini" data-id="{{item.id}}" bindtap="markComplete">完成</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,51 @@
+<view class="container">
+  <view class="form-title">
+    {{type === 'feeding' ? '添加喂养记录' : type === 'sleep' ? '添加睡眠记录' : '添加大小便记录'}}
+  </view>
+
+  <view class="form-group">
+    <text class="label">开始时间</text>
+    <picker mode="date" data-field="startTime" bindchange="onTimeChange">
+      <view class="picker">{{startTime || '请选择'}}</view>
+    </picker>
+  </view>
+
+  <view class="form-group" wx:if="{{type !== 'diaper'}}">
+    <text class="label">结束时间</text>
+    <picker mode="date" data-field="endTime" bindchange="onTimeChange">
+      <view class="picker">{{endTime || '请选择'}}</view>
+    </picker>
+  </view>
+
+  <view class="form-group" wx:if="{{type === 'feeding'}}">
+    <text class="label">奶量 (ml)</text>
+    <input class="input" data-field="amount" bindinput="onInputChange" value="{{amount}}" type="number" />
+  </view>
+
+  <view class="form-group" wx:if="{{type === 'feeding'}}">
+    <text class="label">侧别</text>
+    <input class="input" data-field="side" bindinput="onInputChange" value="{{side}}" placeholder="左/右/瓶喂" />
+  </view>
+
+  <view class="form-group" wx:if="{{type === 'sleep'}}">
+    <text class="label">睡眠质量</text>
+    <input class="input" data-field="quality" bindinput="onInputChange" value="{{quality}}" placeholder="好/一般/差" />
+  </view>
+
+  <view class="form-group" wx:if="{{type === 'diaper'}}">
+    <text class="label">类型</text>
+    <input class="input" data-field="diaperType" bindinput="onInputChange" value="{{diaperType}}" placeholder="小便/大便/都有" />
+  </view>
+
+  <view class="form-group" wx:if="{{type === 'diaper'}}">
+    <text class="label">颜色</text>
+    <input class="input" data-field="color" bindinput="onInputChange" value="{{color}}" />
+  </view>
+
+  <view class="form-group">
+    <text class="label">备注</text>
+    <input class="input" data-field="note" bindinput="onInputChange" value="{{note}}" />
+  </view>
+
+  <button class="btn-primary" bindtap="submit">保存</button>
+</view>

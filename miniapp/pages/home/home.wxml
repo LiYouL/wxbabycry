@@ -1,0 +1,22 @@
+<view class="container">
+  <view class="greeting" wx:if="{{greeting}}">{{greeting}}</view>
+
+  <view class="grid">
+    <view class="grid-item" data-page="/pages/records/records" bindtap="goTo">
+      <view class="grid-icon">📝</view>
+      <text>成长记录</text>
+    </view>
+    <view class="grid-item" data-page="/pages/vaccine/vaccine" bindtap="goTo">
+      <view class="grid-icon">💉</view>
+      <text>疫苗提醒</text>
+    </view>
+    <view class="grid-item" data-page="/pages/noise/noise" bindtap="goTo">
+      <view class="grid-icon">🎵</view>
+      <text>白噪音</text>
+    </view>
+    <view class="grid-item" data-page="/pages/profile/profile" bindtap="goTo">
+      <view class="grid-icon">👤</view>
+      <text>我的</text>
+    </view>
+  </view>
+</view>
