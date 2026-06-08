@@ -22,31 +22,22 @@
     "list": [
       {
         "pagePath": "pages/home/home",
-        "text": "首页",
-        "iconPath": "images/home.png",
-        "selectedIconPath": "images/home-active.png"
+        "text": "首页"
       },
       {
         "pagePath": "pages/recognize/recognize",
-        "text": "识别",
-        "iconPath": "images/recognize.png",
-        "selectedIconPath": "images/recognize-active.png"
+        "text": "识别"
       },
       {
         "pagePath": "pages/records/records",
-        "text": "记录",
-        "iconPath": "images/records.png",
-        "selectedIconPath": "images/records-active.png"
+        "text": "记录"
       },
       {
         "pagePath": "pages/profile/profile",
-        "text": "我的",
-        "iconPath": "images/profile.png",
-        "selectedIconPath": "images/profile-active.png"
+        "text": "我的"
       }
     ]
   },
-  "requiredPrivateInfos": ["getLocation"],
   "permission": {
     "scope.record": {
       "desc": "用于录制婴儿哭声进行识别"

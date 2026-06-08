@@ -1,6 +1,6 @@
 <view class="container">
   <view class="profile-header">
-    <image class="avatar" src="{{babyInfo.avatar_url || '/images/default-avatar.png'}}" mode="aspectFill" />
+    <view class="avatar">👶</view>
     <text class="nickname">{{babyInfo.nickname || '未设置宝宝'}}</text>
   </view>
 

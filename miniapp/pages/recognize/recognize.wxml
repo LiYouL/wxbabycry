@@ -4,9 +4,7 @@
   </view>
 
   <view class="cry-animation">
-    <image class="cry-img {{isRecording ? 'shake' : ''}}"
-           src="/images/crying-baby.png"
-           mode="aspectFit" />
+    <view class="cry-img {{isRecording ? 'shake' : ''}}">😢</view>
   </view>
 
   <view class="record-section">

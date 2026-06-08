@@ -20,9 +20,13 @@
 }
 
 .cry-img {
+  font-size: 180rpx;
+  text-align: center;
+  line-height: 240rpx;
   width: 240rpx;
   height: 240rpx;
   border-radius: 50%;
+  background: #fce4ec;
 }
 
 .shake {

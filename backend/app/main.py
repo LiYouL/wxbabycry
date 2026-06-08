@@ -11,8 +11,11 @@ app = FastAPI(title="Baby Cry Recognition API", version="0.1.0")
 
 @app.on_event("startup")
 async def startup():
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+    try:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+    except Exception:
+        pass  # Allow server to start without database for development
 
 app.add_middleware(
     CORSMiddleware,
