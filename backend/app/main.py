@@ -29,11 +29,13 @@ from app.api.user import router as user_router
 from app.api.baby import router as baby_router
 from app.api.cry import router as cry_router
 from app.api.records import router as records_router
+from app.api.vaccine import router as vaccine_router
 
 app.include_router(user_router)
 app.include_router(baby_router)
 app.include_router(cry_router)
 app.include_router(records_router)
+app.include_router(vaccine_router)
 
 
 @app.get("/api/health")
