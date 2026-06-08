@@ -28,10 +28,12 @@ os.makedirs(settings.audio_upload_dir, exist_ok=True)
 from app.api.user import router as user_router
 from app.api.baby import router as baby_router
 from app.api.cry import router as cry_router
+from app.api.records import router as records_router
 
 app.include_router(user_router)
 app.include_router(baby_router)
 app.include_router(cry_router)
+app.include_router(records_router)
 
 
 @app.get("/api/health")
