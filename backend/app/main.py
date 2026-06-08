@@ -23,6 +23,7 @@ app.add_middleware(
 )
 
 os.makedirs(settings.audio_upload_dir, exist_ok=True)
+os.makedirs(settings.noise_audio_dir, exist_ok=True)
 
 
 from app.api.user import router as user_router
