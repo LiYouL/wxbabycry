@@ -25,6 +25,13 @@ app.add_middleware(
 os.makedirs(settings.audio_upload_dir, exist_ok=True)
 
 
+from app.api.user import router as user_router
+from app.api.baby import router as baby_router
+
+app.include_router(user_router)
+app.include_router(baby_router)
+
+
 @app.get("/api/health")
 async def health():
     return {"status": "ok"}
