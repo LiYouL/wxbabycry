@@ -1,0 +1,55 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/recognize/recognize",
+    "pages/result/result",
+    "pages/noise/noise",
+    "pages/records/records",
+    "pages/records/add/add",
+    "pages/vaccine/vaccine",
+    "pages/profile/profile",
+    "pages/baby/edit/edit"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFB6C1",
+    "navigationBarTitleText": "育儿助手",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#FF69B4",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home-active.png"
+      },
+      {
+        "pagePath": "pages/recognize/recognize",
+        "text": "识别",
+        "iconPath": "images/recognize.png",
+        "selectedIconPath": "images/recognize-active.png"
+      },
+      {
+        "pagePath": "pages/records/records",
+        "text": "记录",
+        "iconPath": "images/records.png",
+        "selectedIconPath": "images/records-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/profile.png",
+        "selectedIconPath": "images/profile-active.png"
+      }
+    ]
+  },
+  "requiredPrivateInfos": ["getLocation"],
+  "permission": {
+    "scope.record": {
+      "desc": "用于录制婴儿哭声进行识别"
+    }
+  }
+}
