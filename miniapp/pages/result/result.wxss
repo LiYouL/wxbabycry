@@ -1,0 +1,53 @@
+.container {
+  padding: 20rpx 30rpx;
+}
+
+.result-card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 40rpx;
+  margin: 30rpx 0;
+  text-align: center;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.05);
+}
+
+.main-type {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.type-emoji { font-size: 80rpx; margin-bottom: 12rpx; }
+.type-label { font-size: 44rpx; font-weight: 700; color: #e91e63; }
+.confidence { font-size: 26rpx; color: #999; margin-top: 8rpx; }
+
+.secondary-types { margin-top: 30rpx; }
+.section-title { font-size: 26rpx; color: #999; margin-bottom: 12rpx; display: block; }
+.type-tags { display: flex; flex-wrap: wrap; gap: 12rpx; justify-content: center; }
+.tag {
+  background: #F3E5F5;
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  color: #7B1FA2;
+}
+
+.advice-card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.05);
+}
+
+.advice-section { margin-bottom: 24rpx; }
+.advice-section:last-child { margin-bottom: 0; }
+.advice-text { font-size: 28rpx; color: #555; line-height: 1.6; }
+.advice-item { font-size: 26rpx; color: #555; line-height: 1.8; padding-left: 10rpx; }
+
+.warning { background: #FFF3E0; padding: 16rpx 20rpx; border-radius: 12rpx; }
+
+.actions {
+  text-align: center;
+  margin: 30rpx 0 40rpx;
+}

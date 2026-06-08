@@ -1,0 +1,50 @@
+<view class="container" wx:if="{{result}}">
+  <view class="result-card">
+    <view class="main-type">
+      <text class="type-emoji">{{result.cry_type === '饥饿' ? '🍼' : result.cry_type === '尿布不适' ? '👶' : result.cry_type === '疲倦' ? '😴' : result.cry_type === '疼痛' ? '😣' : result.cry_type === '需要安抚' ? '🤗' : result.cry_type === '出牙' ? '🦷' : '❓'}}</text>
+      <text class="type-label">{{result.cry_type}}</text>
+      <text class="confidence">{{result.confidence * 100}}% 置信度</text>
+    </view>
+
+    <view class="secondary-types" wx:if="{{result.secondary_types.length > 0}}">
+      <text class="section-title">其他可能</text>
+      <view class="type-tags">
+        <view class="tag" wx:for="{{result.secondary_types}}" wx:key="type">
+          {{item.type}} {{item.confidence * 100}}%
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="advice-card">
+    <view class="advice-section" wx:if="{{result.advice.cause}}">
+      <text class="section-title">📋 原因分析</text>
+      <text class="advice-text">{{result.advice.cause}}</text>
+    </view>
+
+    <view class="advice-section" wx:if="{{result.advice.solutions.length > 0}}">
+      <text class="section-title">✅ 建议方案</text>
+      <view class="advice-item" wx:for="{{result.advice.solutions}}" wx:key="*this">
+        <text>• {{item}}</text>
+      </view>
+    </view>
+
+    <view class="advice-section" wx:if="{{result.advice.soothing_tips.length > 0}}">
+      <text class="section-title">🤗 安抚技巧</text>
+      <view class="advice-item" wx:for="{{result.advice.soothing_tips}}" wx:key="*this">
+        <text>• {{item}}</text>
+      </view>
+    </view>
+
+    <view class="advice-section warning" wx:if="{{result.advice.warnings.length > 0}}">
+      <text class="section-title">⚠️ 注意事项</text>
+      <view class="advice-item" wx:for="{{result.advice.warnings}}" wx:key="*this">
+        <text>• {{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="actions">
+    <button class="btn-primary" bindtap="retryRecord">🔄 重新录音</button>
+  </view>
+</view>

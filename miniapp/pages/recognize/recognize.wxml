@@ -1,0 +1,34 @@
+<view class="container">
+  <view class="header">
+    <text class="baby-name">{{babyName || '宝宝'}}</text>
+  </view>
+
+  <view class="cry-animation">
+    <image class="cry-img {{isRecording ? 'shake' : ''}}"
+           src="/images/crying-baby.png"
+           mode="aspectFit" />
+  </view>
+
+  <view class="record-section">
+    <view wx:if="{{!isRecording}}" class="status-text">
+      请靠近婴儿头部，点击开始录音
+    </view>
+    <view wx:else class="status-text recording">
+      正在录制... {{recordTime}}s
+    </view>
+
+    <view wx:if="{{isRecording}}" class="waveform">
+      <view wx:for="{{[1,2,3,4,5,6,7,8,9,10]}}" wx:key="*this"
+            class="wave-bar" style="animation-delay: {{item * 0.08}}s" />
+    </view>
+
+    <view class="record-btn {{isRecording ? 'recording' : ''}}"
+          bindtap="{{isRecording ? 'stopRecord' : 'startRecord'}}">
+      <text>{{isRecording ? '⏹' : '🎤'}}</text>
+    </view>
+
+    <view class="hint">
+      {{isRecording ? '点击停止录音' : '最少录制6秒，最长30秒'}}
+    </view>
+  </view>
+</view>
