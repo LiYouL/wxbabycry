@@ -7,7 +7,12 @@ import pickle
 from typing import Dict, List
 
 import numpy as np
-import onnxruntime as ort
+
+try:
+    import onnxruntime as ort
+except ImportError:
+    ort = None
+
 from app.config import settings
 
 CRY_TYPES = ["饥饿", "尿布不适", "疲倦", "疼痛", "需要安抚", "其他"]
@@ -72,7 +77,7 @@ class CryClassifier:
             with open(pkl_path, "rb") as f:
                 self._sklearn_model = pickle.load(f)
             self._model_type = "sklearn"
-        elif os.path.exists(model_path):
+        elif ort is not None and os.path.exists(model_path):
             self._session = ort.InferenceSession(model_path)
             self._model_type = "onnx"
 
