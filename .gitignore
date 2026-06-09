@@ -29,3 +29,6 @@ backend/models/*.pth
 # OS
 .DS_Store
 Thumbs.db
+datasets/
+*.zip
+babycry.db
