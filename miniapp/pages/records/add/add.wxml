@@ -4,15 +4,19 @@
   </view>
 
   <view class="form-group">
+    <text class="label">日期：{{currentDate}}</text>
+  </view>
+
+  <view class="form-group">
     <text class="label">开始时间</text>
-    <picker mode="date" data-field="startTime" bindchange="onTimeChange">
+    <picker mode="time" value="{{startTime}}" data-field="startTime" bindchange="onTimeChange">
       <view class="picker">{{startTime || '请选择'}}</view>
     </picker>
   </view>
 
   <view class="form-group" wx:if="{{type !== 'diaper'}}">
     <text class="label">结束时间</text>
-    <picker mode="date" data-field="endTime" bindchange="onTimeChange">
+    <picker mode="time" value="{{endTime}}" data-field="endTime" bindchange="onTimeChange">
       <view class="picker">{{endTime || '请选择'}}</view>
     </picker>
   </view>

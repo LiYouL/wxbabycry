@@ -19,6 +19,7 @@
   "tabBar": {
     "color": "#999",
     "selectedColor": "#FF69B4",
+    "fontSize": "12px",
     "list": [
       {
         "pagePath": "pages/recognize/recognize",
