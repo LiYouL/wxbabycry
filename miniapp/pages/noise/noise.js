@@ -2,60 +2,63 @@ const api = require('../../utils/api');
 const app = getApp();
 const audioCtx = wx.createInnerAudioContext();
 
+var FALLBACK_LIST = [
+  { id: 1, name: '吹风机', icon: '💨', category: '白噪音' },
+  { id: 2, name: '虫鸣', icon: '🦗', category: '白噪音' },
+  { id: 3, name: '鸟鸣', icon: '🐦', category: '白噪音' },
+  { id: 4, name: '电视白噪音', icon: '📺', category: '白噪音' },
+  { id: 5, name: '风声', icon: '🌬️', category: '白噪音' },
+  { id: 6, name: '心跳', icon: '💓', category: '白噪音' },
+  { id: 7, name: '雨声', icon: '🌧️', category: '白噪音' },
+  { id: 8, name: '海浪', icon: '🌊', category: '白噪音' },
+  { id: 9, name: '蚊子声', icon: '🦟', category: '白噪音' },
+  { id: 10, name: '洗衣机', icon: '🧺', category: '白噪音' },
+];
+
 Page({
   data: {
     items: [],
-    categories: [],
-    activeCategory: '全部',
-    currentTrack: null,
+    activeId: null,
     isPlaying: false,
-    isLoop: false,
   },
 
-  onLoad() { this.loadList(); },
+  onLoad() {
+    this.loadList();
+    var that = this;
+    audioCtx.onError(function() {
+      wx.showToast({ title: '暂无音频资源', icon: 'none' });
+      that.setData({ activeId: null, isPlaying: false });
+    });
+  },
 
   async loadList() {
     try {
       var res = await api.get('/noise/list');
-      this.setData({ items: res.items, categories: res.categories });
+      this.setData({ items: res.items && res.items.length ? res.items : FALLBACK_LIST });
     } catch (err) {
-      wx.showToast({ title: '加载失败', icon: 'none' });
+      this.setData({ items: FALLBACK_LIST });
     }
-  },
-
-  switchCategory(e) {
-    this.setData({ activeCategory: e.currentTarget.dataset.cat });
   },
 
   togglePlay(e) {
-    var item = e.currentTarget.dataset.item;
-    if (this.data.currentTrack && this.data.currentTrack.id === item.id) {
-      this._togglePauseResume();
-    } else {
-      this._playNew(item);
-    }
-  },
+    var id = e.currentTarget.dataset.id;
+    var item = this.data.items.find(function(it) { return it.id === id; });
+    if (!item) return;
 
-  _playNew(item) {
-    audioCtx.src = app.globalData.apiBase + '/noise/' + item.id + '/stream';
-    audioCtx.loop = this.data.isLoop;
-    audioCtx.play();
-    this.setData({ currentTrack: item, isPlaying: true });
-  },
-
-  _togglePauseResume() {
-    if (this.data.isPlaying) {
-      audioCtx.pause();
+    if (this.data.activeId === id) {
+      if (this.data.isPlaying) {
+        audioCtx.pause();
+        this.setData({ isPlaying: false });
+      } else {
+        audioCtx.play();
+        this.setData({ isPlaying: true });
+      }
     } else {
+      audioCtx.src = app.globalData.apiBase + '/noise/' + id + '/stream';
+      audioCtx.loop = true;
       audioCtx.play();
+      this.setData({ activeId: id, isPlaying: true });
     }
-    this.setData({ isPlaying: !this.data.isPlaying });
-  },
-
-  toggleLoop() {
-    var loop = !this.data.isLoop;
-    audioCtx.loop = loop;
-    this.setData({ isLoop: loop });
   },
 
   onUnload() { audioCtx.destroy(); },

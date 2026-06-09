@@ -1,10 +1,21 @@
 const app = getApp();
 
 Page({
-  data: { babyInfo: null },
+  data: {
+    babyInfo: null,
+    dayCount: 0,
+    greeting: '',
+  },
 
   onShow() {
-    this.setData({ babyInfo: app.globalData.babyInfo });
+    var b = app.globalData.babyInfo;
+    if (b) {
+      this.setData({ babyInfo: b });
+      if (b.birthday) {
+        var days = Math.floor((Date.now() - new Date(b.birthday).getTime()) / 86400000);
+        this.setData({ dayCount: days, greeting: b.nickname + ' 已经 ' + days + ' 天啦！' });
+      }
+    }
   },
 
   goEditBaby() {

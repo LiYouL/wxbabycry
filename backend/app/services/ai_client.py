@@ -98,12 +98,6 @@ def _fallback_advice(cry_type: str) -> CryAdvice:
             soothing_tips=["用温柔的声音和宝宝交流", "轻轻抚摸宝宝的背部"],
             warnings=["观察宝宝是否有其他不适症状，不要长时间让宝宝独自哭闹"],
         ),
-        "出牙": CryAdvice(
-            cause="宝宝可能正在出牙，牙龈不适导致哭闹",
-            solutions=["用干净的手指轻轻按摩宝宝牙龈", "提供安全的牙胶给宝宝咬"],
-            soothing_tips=["可以冷藏牙胶（不要冷冻）缓解不适", "保持宝宝口腔清洁"],
-            warnings=["如伴随发烧超过38°C请就医"],
-        ),
         "其他": CryAdvice(
             cause="宝宝的哭声原因不太明确",
             solutions=["逐一检查：是否饿了、尿布湿了、困了、太热/太冷"],

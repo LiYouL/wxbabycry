@@ -1,0 +1,44 @@
+.container {
+  padding: 30rpx;
+}
+
+.form-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.form-group {
+  margin-bottom: 30rpx;
+}
+
+.label {
+  font-size: 26rpx;
+  color: #999;
+  margin-bottom: 12rpx;
+  display: block;
+}
+
+.input {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  font-size: 28rpx;
+  border: 2rpx solid #f0f0f0;
+}
+
+.picker {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  font-size: 28rpx;
+  color: #999;
+  border: 2rpx solid #f0f0f0;
+}
+
+.btn-primary {
+  margin-top: 40rpx;
+  width: 100%;
+}

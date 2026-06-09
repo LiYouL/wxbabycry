@@ -1,0 +1,47 @@
+.container {
+  padding: 20rpx 30rpx;
+}
+
+.vaccine-item {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 24rpx 30rpx;
+  margin-bottom: 16rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.03);
+}
+
+.vaccine-info {
+  flex: 1;
+}
+
+.vaccine-name {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 500;
+  display: block;
+}
+
+.vaccine-date {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 6rpx;
+  display: block;
+}
+
+.vaccine-status {
+  font-size: 24rpx;
+  color: #FF69B4;
+  margin-top: 4rpx;
+  display: block;
+}
+
+.vaccine-status.done {
+  color: #4CAF50;
+}
+
+.vaccine-action {
+  margin-left: 20rpx;
+}

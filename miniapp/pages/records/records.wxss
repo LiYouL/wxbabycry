@@ -1,0 +1,62 @@
+.container {
+  padding-bottom: 120rpx;
+}
+
+.tabs {
+  display: flex;
+  padding: 20rpx 30rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  margin: 20rpx 20rpx;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 0;
+  font-size: 28rpx;
+  color: #999;
+  border-radius: 30rpx;
+}
+
+.tab.active {
+  background: #FFB6C1;
+  color: #fff;
+}
+
+.record-list {
+  padding: 0 30rpx;
+}
+
+.record-item {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx 30rpx;
+  margin-bottom: 16rpx;
+  display: flex;
+  justify-content: space-between;
+  font-size: 26rpx;
+  color: #555;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.03);
+}
+
+.no-more {
+  text-align: center;
+  color: #ccc;
+  font-size: 24rpx;
+  padding: 30rpx;
+}
+
+.add-btn {
+  position: fixed;
+  bottom: 30rpx;
+  left: 30rpx;
+  right: 30rpx;
+  background: linear-gradient(135deg, #FFB6C1, #FF69B4);
+  color: #fff;
+  text-align: center;
+  padding: 24rpx;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+  box-shadow: 0 8rpx 24rpx rgba(255,105,180,0.3);
+}

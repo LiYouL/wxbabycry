@@ -1,36 +1,20 @@
 <view class="container">
-  <view class="header-desc">
-    播放白噪音有助于宝宝放松和入睡，建议在安静环境中播放，不超过30分钟。
-  </view>
+  <view class="page-desc">点击卡片播放白噪音，帮助宝宝放松入睡</view>
 
-  <scroll-view class="tabs" scroll-x>
-    <view class="tab {{activeCategory === cat ? 'active' : ''}}"
-          wx:for="{{categories}}" wx:key="*this"
-          data-cat="{{item}}" bindtap="switchCategory">
-      {{item}}
-    </view>
-  </scroll-view>
-
-  <view class="noise-list">
-    <view class="noise-item" wx:for="{{items}}" wx:key="id">
-      <view class="noise-icon">{{item.icon}}</view>
-      <view class="noise-name">{{item.name}}</view>
-      <view class="noise-actions">
-        <view class="noise-btn" data-item="{{item}}" bindtap="togglePlay">
-          {{currentTrack && currentTrack.id === item.id && isPlaying ? '⏸' : '▶️'}}
-        </view>
-        <view class="noise-btn {{isLoop ? 'active' : ''}}" bindtap="toggleLoop">🔁</view>
+  <view class="noise-grid">
+    <view class="noise-card {{activeId === item.id && isPlaying ? 'playing' : ''}}"
+          wx:for="{{items}}" wx:key="id"
+          data-id="{{item.id}}" bindtap="togglePlay">
+      <view class="card-icon {{activeId === item.id && isPlaying ? 'icon-pulse' : ''}}">
+        {{item.icon}}
+      </view>
+      <text class="card-name">{{item.name}}</text>
+      <view class="card-status">
+        <text wx:if="{{activeId === item.id && isPlaying}}" class="playing-dot"></text>
+        <text wx:else class="play-hint">▶</text>
       </view>
     </view>
   </view>
 
-  <view class="player-bar" wx:if="{{currentTrack}}">
-    <text class="playing-name">{{currentTrack.name}}</text>
-    <view class="player-controls">
-      <view class="ctrl-btn" bindtap="togglePlay">
-        {{isPlaying ? '⏸' : '▶️'}}
-      </view>
-      <view class="ctrl-btn {{isLoop ? 'active' : ''}}" bindtap="toggleLoop">🔁</view>
-    </view>
-  </view>
+  <view class="footer-hint" wx:if="{{items.length === 0}}">暂无可用白噪音</view>
 </view>

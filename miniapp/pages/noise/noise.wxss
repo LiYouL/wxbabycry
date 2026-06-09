@@ -1,29 +1,89 @@
-.header-desc {
-  font-size: 24rpx; color: #999; margin-bottom: 20rpx; line-height: 1.6;
+.container {
+  padding: 30rpx;
+  min-height: 100vh;
 }
-.tabs {
-  display: flex; white-space: nowrap; margin-bottom: 20rpx;
+
+.page-desc {
+  font-size: 24rpx;
+  color: #999;
+  text-align: center;
+  margin-bottom: 30rpx;
 }
-.tab {
-  display: inline-block; padding: 12rpx 28rpx; font-size: 26rpx; color: #666;
-  border-radius: 30rpx; margin-right: 16rpx;
+
+.noise-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20rpx;
 }
-.tab.active { background: #FFB6C1; color: #fff; }
-.noise-item {
-  display: flex; align-items: center; background: #fff; border-radius: 16rpx;
-  padding: 24rpx; margin-bottom: 16rpx;
+
+.noise-card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 32rpx 16rpx 24rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.04);
+  border: 3rpx solid transparent;
+  transition: all 0.2s ease;
 }
-.noise-icon { font-size: 44rpx; margin-right: 20rpx; }
-.noise-name { flex: 1; font-size: 28rpx; }
-.noise-actions { display: flex; gap: 16rpx; }
-.noise-btn { font-size: 36rpx; padding: 8rpx; }
-.noise-btn.active { color: #FF69B4; }
-.player-bar {
-  position: fixed; bottom: 0; left: 0; right: 0; background: #fff;
-  padding: 20rpx 30rpx; display: flex; align-items: center; justify-content: space-between;
-  box-shadow: 0 -4rpx 16rpx rgba(0,0,0,0.05);
+
+.noise-card.playing {
+  border-color: #FFB6C1;
+  box-shadow: 0 4rpx 24rpx rgba(255,105,180,0.15);
+  background: #FFF5F7;
 }
-.playing-name { font-size: 26rpx; color: #333; }
-.player-controls { display: flex; gap: 24rpx; }
-.ctrl-btn { font-size: 40rpx; }
-.ctrl-btn.active { color: #FF69B4; }
+
+.card-icon {
+  font-size: 64rpx;
+  line-height: 80rpx;
+  margin-bottom: 10rpx;
+}
+
+.icon-pulse {
+  animation: softPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes softPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.card-name {
+  font-size: 24rpx;
+  color: #555;
+  text-align: center;
+  margin-bottom: 8rpx;
+}
+
+.card-status {
+  height: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.play-hint {
+  font-size: 18rpx;
+  color: #ccc;
+}
+
+.playing-dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background: #FF69B4;
+  animation: dotPulse 1s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.6); }
+}
+
+.footer-hint {
+  text-align: center;
+  color: #ccc;
+  font-size: 26rpx;
+  padding-top: 80rpx;
+}

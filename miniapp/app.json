@@ -1,13 +1,13 @@
 {
   "pages": [
-    "pages/home/home",
     "pages/recognize/recognize",
-    "pages/result/result",
     "pages/noise/noise",
     "pages/records/records",
+    "pages/profile/profile",
+    "pages/home/home",
+    "pages/result/result",
     "pages/records/add/add",
     "pages/vaccine/vaccine",
-    "pages/profile/profile",
     "pages/baby/edit/edit"
   ],
   "window": {
@@ -21,12 +21,12 @@
     "selectedColor": "#FF69B4",
     "list": [
       {
-        "pagePath": "pages/home/home",
-        "text": "首页"
-      },
-      {
         "pagePath": "pages/recognize/recognize",
         "text": "识别"
+      },
+      {
+        "pagePath": "pages/noise/noise",
+        "text": "白噪音"
       },
       {
         "pagePath": "pages/records/records",
@@ -38,9 +38,5 @@
       }
     ]
   },
-  "permission": {
-    "scope.record": {
-      "desc": "用于录制婴儿哭声进行识别"
-    }
-  }
+  "permission": {}
 }

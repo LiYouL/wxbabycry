@@ -1,16 +1,20 @@
-const app = getApp();
+function getGlobalData() {
+  var app = getApp();
+  return app ? app.globalData : { token: '', apiBase: 'http://localhost:8000/api' };
+}
 
 function request(method, path, data = {}, options = {}) {
   return new Promise((resolve, reject) => {
+    var globalData = getGlobalData();
     const header = {
       'Content-Type': 'application/json',
     };
-    if (app.globalData.token) {
-      header['Authorization'] = 'Bearer ' + app.globalData.token;
+    if (globalData.token) {
+      header['Authorization'] = 'Bearer ' + globalData.token;
     }
 
     wx.request({
-      url: app.globalData.apiBase + path,
+      url: globalData.apiBase + path,
       method: method,
       header: header,
       data: data,
@@ -32,13 +36,14 @@ function request(method, path, data = {}, options = {}) {
 
 function uploadFile(path, filePath, formData = {}) {
   return new Promise((resolve, reject) => {
+    var globalData = getGlobalData();
     const header = {};
-    if (app.globalData.token) {
-      header['Authorization'] = 'Bearer ' + app.globalData.token;
+    if (globalData.token) {
+      header['Authorization'] = 'Bearer ' + globalData.token;
     }
 
     wx.uploadFile({
-      url: app.globalData.apiBase + path,
+      url: globalData.apiBase + path,
       filePath: filePath,
       name: 'audio',
       header: header,

@@ -1,0 +1,49 @@
+.container {
+  padding: 0;
+}
+
+.profile-header {
+  background: linear-gradient(135deg, #FFB6C1, #FF69B4);
+  padding: 60rpx 30rpx 50rpx;
+  text-align: center;
+}
+
+.avatar {
+  font-size: 100rpx;
+  margin-bottom: 20rpx;
+}
+
+.nickname {
+  font-size: 36rpx;
+  color: #fff;
+  font-weight: 600;
+  display: block;
+}
+
+.greeting {
+  margin-top: 16rpx;
+  background: rgba(255,255,255,0.25);
+  border-radius: 30rpx;
+  padding: 12rpx 30rpx;
+  display: inline-block;
+}
+
+.greeting text {
+  font-size: 26rpx;
+  color: #fff;
+}
+
+.menu-list {
+  margin-top: 30rpx;
+  padding: 0 30rpx;
+}
+
+.menu-item {
+  background: #fff;
+  padding: 30rpx;
+  border-radius: 16rpx;
+  margin-bottom: 16rpx;
+  font-size: 28rpx;
+  color: #333;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.03);
+}

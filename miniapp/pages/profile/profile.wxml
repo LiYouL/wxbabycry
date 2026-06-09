@@ -2,6 +2,9 @@
   <view class="profile-header">
     <view class="avatar">👶</view>
     <text class="nickname">{{babyInfo.nickname || '未设置宝宝'}}</text>
+    <view class="greeting" wx:if="{{greeting}}">
+      <text>{{greeting}}</text>
+    </view>
   </view>
 
   <view class="menu-list">

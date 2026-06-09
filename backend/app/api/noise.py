@@ -16,6 +16,8 @@ NOISE_LIST = [
     {"id": 6, "name": "心跳", "icon": "\U0001f493", "category": "白噪音", "file": "heartbeat.mp3"},
     {"id": 7, "name": "雨声", "icon": "\U0001f327️", "category": "白噪音", "file": "rain.mp3"},
     {"id": 8, "name": "海浪", "icon": "\U0001f30a", "category": "白噪音", "file": "ocean.mp3"},
+    {"id": 9, "name": "蚊子声", "icon": "\U0001f99f", "category": "白噪音", "file": "mosquito.mp3"},
+    {"id": 10, "name": "洗衣机", "icon": "\U0001f9fa", "category": "白噪音", "file": "washer.mp3"},
 ]
 
 
