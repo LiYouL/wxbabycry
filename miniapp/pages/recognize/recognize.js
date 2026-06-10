@@ -1,6 +1,7 @@
 const api = require('../../utils/api');
 const app = getApp();
 const recorderManager = wx.getRecorderManager();
+const ANALYZE_TIMEOUT_MS = 25000;
 
 Page({
   data: {
@@ -61,6 +62,7 @@ Page({
       '正在上传哭声样本',
       'AI大模型智能分析中',
       '正在生成育儿建议',
+      '云端仍在分析，请稍等',
     ];
     var progress = 8;
     if (this.data.progressTimer) clearInterval(this.data.progressTimer);
@@ -70,8 +72,8 @@ Page({
       analyzeText: steps[0],
     });
     this.data.progressTimer = setInterval(function() {
-      progress = Math.min(progress + 9, 96);
-      var idx = progress < 38 ? 0 : progress < 78 ? 1 : 2;
+      progress = Math.min(progress + 7, 96);
+      var idx = progress < 35 ? 0 : progress < 70 ? 1 : progress < 96 ? 2 : 3;
       that.setData({
         analyzeProgress: progress,
         analyzeText: steps[idx],
@@ -89,6 +91,34 @@ Page({
     });
   },
 
+  finishAnalyzeProgress() {
+    if (this.data.progressTimer) clearInterval(this.data.progressTimer);
+    this.setData({
+      analyzing: true,
+      analyzeProgress: 100,
+      analyzeText: '分析完成，正在生成结果',
+      progressTimer: null,
+    });
+  },
+
+  showAnalyzeError(err) {
+    console.error('Recognize failed:', err);
+    var message = '识别失败，请稍后重试';
+    if (err && err.detail) {
+      message = err.detail;
+    } else if (err && err.errMsg && err.errMsg.indexOf('timeout') >= 0) {
+      message = '网络较慢，云端分析超时，请稍后重试';
+    } else if (err && err.errMsg) {
+      message = '网络连接失败，请检查后重试';
+    }
+
+    wx.showModal({
+      title: '识别失败',
+      content: message,
+      showCancel: false,
+    });
+  },
+
   async onRecordStop(res) {
     this.startAnalyzeProgress();
 
@@ -98,16 +128,19 @@ Page({
         formData.baby_id = String(app.globalData.babyId);
       }
 
-      var result = await api.uploadFile('/cry/recognize', res.tempFilePath, formData, { timeout: 6000 });
+      var result = await api.uploadFile('/cry/recognize', res.tempFilePath, formData, { timeout: ANALYZE_TIMEOUT_MS });
 
-      this.stopAnalyzeProgress();
+      this.finishAnalyzeProgress();
       wx.setStorageSync('latestCryResult', result);
-      wx.navigateTo({
-        url: '/pages/result/result',
-      });
+      setTimeout(() => {
+        this.stopAnalyzeProgress();
+        wx.navigateTo({
+          url: '/pages/result/result',
+        });
+      }, 160);
     } catch (err) {
       this.stopAnalyzeProgress();
-      wx.showToast({ title: '分析超时，请靠近宝宝重试', icon: 'none' });
+      this.showAnalyzeError(err);
     }
   },
 

@@ -50,14 +50,20 @@ function uploadFile(path, filePath, formData = {}, options = {}) {
       formData: formData,
       ...options,
       success(res) {
+        var body = {};
+        try {
+          body = JSON.parse(res.data || '{}');
+        } catch (e) {
+          body = { detail: res.data || '服务响应解析失败' };
+        }
+
         if (res.statusCode >= 200 && res.statusCode < 300) {
-          resolve(JSON.parse(res.data));
+          resolve(body);
         } else {
-          reject(JSON.parse(res.data));
+          reject(body);
         }
       },
       fail(err) {
-        wx.showToast({ title: '上传失败', icon: 'none' });
         reject(err);
       },
     });
