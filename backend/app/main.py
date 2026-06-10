@@ -47,3 +47,10 @@ app.include_router(noise_router)
 @app.get("/api/health")
 async def health():
     return {"status": "ok"}
+
+
+@app.get("/api/health/model")
+async def model_health():
+    from app.services.cry_classifier import classifier
+
+    return {"status": "ok", "model": classifier.status()}

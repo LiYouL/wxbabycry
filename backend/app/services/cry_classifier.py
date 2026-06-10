@@ -89,6 +89,16 @@ class CryClassifier:
         else:
             return self._random_predict()
 
+    def status(self) -> Dict:
+        return {
+            "model_type": self._model_type or "random_fallback",
+            "class_count": len(self._labels),
+            "labels": self._labels,
+            "sklearn_loaded": self._sklearn_model is not None,
+            "onnxruntime_available": ort is not None,
+            "onnx_loaded": self._session is not None,
+        }
+
     def _predict_sklearn(self, mfcc: np.ndarray) -> List[Dict]:
         if mfcc.shape[1] < 128:
             mfcc = np.pad(mfcc, ((0, 0), (0, 128 - mfcc.shape[1])))

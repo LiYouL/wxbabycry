@@ -2,7 +2,7 @@ var api = require('./utils/api');
 
 App({
   globalData: {
-    apiBase: 'http://localhost:8000/api',
+    apiBase: 'https://babycry-268031-4-1441517375.sh.run.tcloudbase.com/api',
     token: '',
     babyId: null,
     babyInfo: null,

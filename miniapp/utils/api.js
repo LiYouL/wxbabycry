@@ -1,6 +1,6 @@
 function getGlobalData() {
   var app = getApp();
-  return app ? app.globalData : { token: '', apiBase: 'http://localhost:8000/api' };
+  return app ? app.globalData : { token: '', apiBase: 'https://babycry-268031-4-1441517375.sh.run.tcloudbase.com/api' };
 }
 
 function request(method, path, data = {}, options = {}) {
