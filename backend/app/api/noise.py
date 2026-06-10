@@ -8,16 +8,16 @@ router = APIRouter(prefix="/api/noise", tags=["noise"])
 
 
 NOISE_LIST = [
-    {"id": 1, "name": "吹风机", "icon": "\U0001f4a8", "category": "白噪音", "file": "hair_dryer.mp3"},
-    {"id": 2, "name": "虫鸣", "icon": "\U0001f997", "category": "白噪音", "file": "insects.mp3"},
-    {"id": 3, "name": "鸟鸣", "icon": "\U0001f426", "category": "白噪音", "file": "birds.mp3"},
-    {"id": 4, "name": "电视白噪音", "icon": "\U0001f4fa", "category": "白噪音", "file": "tv_static.mp3"},
-    {"id": 5, "name": "风声", "icon": "\U0001f32c️", "category": "白噪音", "file": "wind.mp3"},
-    {"id": 6, "name": "心跳", "icon": "\U0001f493", "category": "白噪音", "file": "heartbeat.mp3"},
-    {"id": 7, "name": "雨声", "icon": "\U0001f327️", "category": "白噪音", "file": "rain.mp3"},
-    {"id": 8, "name": "海浪", "icon": "\U0001f30a", "category": "白噪音", "file": "ocean.mp3"},
-    {"id": 9, "name": "蚊子声", "icon": "\U0001f99f", "category": "白噪音", "file": "mosquito.mp3"},
-    {"id": 10, "name": "洗衣机", "icon": "\U0001f9fa", "category": "白噪音", "file": "washer.mp3"},
+    {"id": 1, "name": "吹风机", "icon": "\U0001f4a8", "category": "白噪音", "file": "hair_dryer.wav"},
+    {"id": 2, "name": "虫鸣", "icon": "\U0001f997", "category": "白噪音", "file": "insects.wav"},
+    {"id": 3, "name": "鸟鸣", "icon": "\U0001f426", "category": "白噪音", "file": "birds.wav"},
+    {"id": 4, "name": "电视白噪音", "icon": "\U0001f4fa", "category": "白噪音", "file": "tv_static.wav"},
+    {"id": 5, "name": "风声", "icon": "\U0001f32c️", "category": "白噪音", "file": "wind.wav"},
+    {"id": 6, "name": "心跳", "icon": "\U0001f493", "category": "白噪音", "file": "heartbeat.wav"},
+    {"id": 7, "name": "雨声", "icon": "\U0001f327️", "category": "白噪音", "file": "rain.wav"},
+    {"id": 8, "name": "海浪", "icon": "\U0001f30a", "category": "白噪音", "file": "ocean.wav"},
+    {"id": 9, "name": "蚊子声", "icon": "\U0001f99f", "category": "白噪音", "file": "mosquito.wav"},
+    {"id": 10, "name": "洗衣机", "icon": "\U0001f9fa", "category": "白噪音", "file": "washer.wav"},
 ]
 
 
@@ -38,5 +38,5 @@ async def stream_noise(noise_id: int):
             path = os.path.join(settings.noise_audio_dir, item["file"])
             if not os.path.exists(path):
                 raise HTTPException(status_code=404, detail="音频文件不存在")
-            return FileResponse(path, media_type="audio/mpeg")
+            return FileResponse(path, media_type="audio/wav")
     raise HTTPException(status_code=404, detail="白噪音不存在")

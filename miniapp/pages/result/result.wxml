@@ -1,16 +1,16 @@
 <view class="container" wx:if="{{result}}">
   <view class="result-card">
     <view class="main-type">
-      <text class="type-emoji">{{result.cry_type === '饥饿' ? '🍼' : result.cry_type === '尿布不适' ? '👶' : result.cry_type === '疲倦' ? '😴' : result.cry_type === '疼痛' ? '😣' : result.cry_type === '需要安抚' ? '🤗' : result.cry_type === '出牙' ? '🦷' : '❓'}}</text>
+      <text class="type-emoji">{{result.type_emoji}}</text>
       <text class="type-label">{{result.cry_type}}</text>
-      <text class="confidence">{{result.confidence * 100}}% 置信度</text>
+      <text class="confidence">{{result.confidence_percent}}% 置信度</text>
     </view>
 
     <view class="secondary-types" wx:if="{{result.secondary_types.length > 0}}">
       <text class="section-title">其他可能</text>
       <view class="type-tags">
         <view class="tag" wx:for="{{result.secondary_types}}" wx:key="type">
-          {{item.type}} {{item.confidence * 100}}%
+          {{item.type}} {{item.confidence_percent}}%
         </view>
       </view>
     </view>

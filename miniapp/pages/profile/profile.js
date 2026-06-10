@@ -27,6 +27,33 @@ Page({
   },
 
   goNoise() {
-    wx.navigateTo({ url: '/pages/noise/noise' });
+    wx.switchTab({ url: '/pages/noise/noise' });
+  },
+
+  goRecords() {
+    wx.switchTab({ url: '/pages/records/records' });
+  },
+
+  goGrowth() {
+    wx.showToast({ title: '成长分析整理中', icon: 'none' });
+  },
+
+  goFeedback() {
+    wx.showModal({
+      title: '意见反馈',
+      content: '可以先把问题截图发给开发者，后续会接入微信反馈入口。',
+      showCancel: false,
+    });
+  },
+
+  shareApp() {
+    wx.showToast({ title: '请用右上角菜单分享', icon: 'none' });
+  },
+
+  onShareAppMessage() {
+    return {
+      title: '智能育儿助手',
+      path: '/pages/recognize/recognize',
+    };
   },
 });

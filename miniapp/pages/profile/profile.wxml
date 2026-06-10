@@ -11,8 +11,9 @@
     <view class="menu-item" bindtap="goEditBaby">📝 宝宝信息设置</view>
     <view class="menu-item" bindtap="goVaccine">💉 疫苗提醒</view>
     <view class="menu-item" bindtap="goNoise">🎵 白噪音</view>
-    <view class="menu-item">📊 成长分析</view>
-    <view class="menu-item">📮 意见反馈</view>
-    <view class="menu-item">📤 分享小程序</view>
+    <view class="menu-item" bindtap="goRecords">🍼 成长记录</view>
+    <view class="menu-item" bindtap="goGrowth">📊 成长分析</view>
+    <view class="menu-item" bindtap="goFeedback">📮 意见反馈</view>
+    <view class="menu-item" bindtap="shareApp">📤 分享小程序</view>
   </view>
 </view>

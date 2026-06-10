@@ -63,11 +63,9 @@ Page({
       var result = await api.uploadFile('/cry/recognize', res.tempFilePath, formData);
 
       wx.hideLoading();
+      wx.setStorageSync('latestCryResult', result);
       wx.navigateTo({
         url: '/pages/result/result',
-        success: function(page) {
-          page.setData({ result: result });
-        },
       });
     } catch (err) {
       wx.hideLoading();
