@@ -46,6 +46,14 @@ Page({
     });
   },
 
+  goGuide() {
+    wx.showModal({
+      title: '使用指南',
+      content: '1. 识别页录制6秒以上哭声，可查看原因和置信度。\n2. 白噪音页点击卡片即可播放，再点一次暂停。\n3. 记录页可记录喂养、睡眠和大小便。',
+      showCancel: false,
+    });
+  },
+
   shareApp() {
     wx.showToast({ title: '请用右上角菜单分享', icon: 'none' });
   },

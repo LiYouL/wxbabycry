@@ -1,5 +1,8 @@
 <view class="container">
   <view class="page-desc">点击卡片播放白噪音，帮助宝宝放松入睡</view>
+  <view class="now-playing" wx:if="{{activeName}}">
+    <text>{{playState === 'loading' ? '正在加载' : isPlaying ? '正在播放' : '已暂停'}}：{{activeName}}</text>
+  </view>
 
   <view class="noise-grid">
     <view class="noise-card {{activeId === item.id && isPlaying ? 'playing' : ''}}"
@@ -10,8 +13,10 @@
       </view>
       <text class="card-name">{{item.name}}</text>
       <view class="card-status">
-        <text wx:if="{{activeId === item.id && isPlaying}}" class="playing-dot"></text>
-        <text wx:else class="play-hint">▶</text>
+        <text wx:if="{{activeId === item.id && playState === 'loading'}}" class="play-hint">加载中</text>
+        <text wx:elif="{{activeId === item.id && isPlaying}}" class="playing-label">播放中</text>
+        <text wx:elif="{{activeId === item.id}}" class="play-hint">继续播放</text>
+        <text wx:else class="play-hint">点击播放</text>
       </view>
     </view>
   </view>

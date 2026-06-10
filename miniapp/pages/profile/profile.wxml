@@ -13,6 +13,7 @@
     <view class="menu-item" bindtap="goNoise">🎵 白噪音</view>
     <view class="menu-item" bindtap="goRecords">🍼 成长记录</view>
     <view class="menu-item" bindtap="goGrowth">📊 成长分析</view>
+    <view class="menu-item" bindtap="goGuide">📘 使用指南</view>
     <view class="menu-item" bindtap="goFeedback">📮 意见反馈</view>
     <view class="menu-item" bindtap="shareApp">📤 分享小程序</view>
   </view>

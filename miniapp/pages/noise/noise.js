@@ -20,14 +20,34 @@ Page({
     items: [],
     activeId: null,
     isPlaying: false,
+    playState: 'idle',
+    activeName: '',
   },
 
   onLoad() {
     this.loadList();
     var that = this;
+    audioCtx.loop = true;
+    audioCtx.onCanplay(function() {
+      if (that.data.playState === 'loading') {
+        audioCtx.play();
+      }
+    });
+    audioCtx.onPlay(function() {
+      that.setData({ isPlaying: true, playState: 'playing' });
+    });
+    audioCtx.onPause(function() {
+      that.setData({ isPlaying: false, playState: 'paused' });
+    });
+    audioCtx.onStop(function() {
+      that.setData({ isPlaying: false, playState: 'idle', activeId: null, activeName: '' });
+    });
+    audioCtx.onEnded(function() {
+      that.setData({ isPlaying: false, playState: 'idle', activeId: null, activeName: '' });
+    });
     audioCtx.onError(function() {
       wx.showToast({ title: '暂无音频资源', icon: 'none' });
-      that.setData({ activeId: null, isPlaying: false });
+      that.setData({ activeId: null, activeName: '', isPlaying: false, playState: 'idle' });
     });
   },
 
@@ -48,16 +68,22 @@ Page({
     if (this.data.activeId === id) {
       if (this.data.isPlaying) {
         audioCtx.pause();
-        this.setData({ isPlaying: false });
+        this.setData({ isPlaying: false, playState: 'paused' });
       } else {
+        this.setData({ playState: 'loading', activeName: item.name });
         audioCtx.play();
-        this.setData({ isPlaying: true });
       }
     } else {
+      audioCtx.stop();
       audioCtx.src = app.globalData.apiBase + '/noise/' + id + '/stream';
-      audioCtx.loop = true;
+      audioCtx.title = item.name;
+      this.setData({
+        activeId: id,
+        activeName: item.name,
+        isPlaying: false,
+        playState: 'loading',
+      });
       audioCtx.play();
-      this.setData({ activeId: id, isPlaying: true });
     }
   },
 
