@@ -7,7 +7,6 @@
     "pages/home/home",
     "pages/result/result",
     "pages/records/add/add",
-    "pages/vaccine/vaccine",
     "pages/baby/edit/edit"
   ],
   "window": {

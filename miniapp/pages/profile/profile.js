@@ -22,10 +22,6 @@ Page({
     wx.navigateTo({ url: '/pages/baby/edit/edit' });
   },
 
-  goVaccine() {
-    wx.navigateTo({ url: '/pages/vaccine/vaccine' });
-  },
-
   goNoise() {
     wx.switchTab({ url: '/pages/noise/noise' });
   },

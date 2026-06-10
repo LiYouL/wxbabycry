@@ -1,4 +1,5 @@
 # backend/app/services/ai_client.py
+import asyncio
 from typing import Optional
 
 from anthropic import AsyncAnthropic
@@ -45,17 +46,23 @@ def build_prompt(cry_type: str, confidence: float, baby_info: Optional[dict]) ->
 async def generate_advice(
     cry_type: str, confidence: float, baby_info: Optional[dict] = None
 ) -> CryAdvice:
+    if not settings.anthropic_api_key:
+        return _fallback_advice(cry_type)
+
     prompt = build_prompt(cry_type, confidence, baby_info)
 
     client = AsyncAnthropic(api_key=settings.anthropic_api_key)
 
     try:
-        response = await client.messages.create(
-            model="claude-sonnet-4-6",
-            max_tokens=512,
-            system=SYSTEM_PROMPT,
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.7,
+        response = await asyncio.wait_for(
+            client.messages.create(
+                model="claude-sonnet-4-6",
+                max_tokens=512,
+                system=SYSTEM_PROMPT,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.7,
+            ),
+            timeout=3.0,
         )
         import json
 

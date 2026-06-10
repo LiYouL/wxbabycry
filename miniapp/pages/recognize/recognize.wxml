@@ -29,4 +29,15 @@
       {{isRecording ? '点击停止录音' : '最少录制6秒，最长30秒'}}
     </view>
   </view>
+
+  <view class="analyze-mask" wx:if="{{analyzing}}">
+    <view class="analyze-panel">
+      <view class="analyze-title">AI大模型智能分析中</view>
+      <view class="analyze-subtitle">{{analyzeText}}</view>
+      <view class="progress-track">
+        <view class="progress-fill" style="width: {{analyzeProgress}}%;"></view>
+      </view>
+      <view class="progress-text">{{analyzeProgress}}%</view>
+    </view>
+  </view>
 </view>

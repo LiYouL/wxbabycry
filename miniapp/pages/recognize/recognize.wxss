@@ -103,3 +103,58 @@
   color: #bbb;
   margin-top: 20rpx;
 }
+
+.analyze-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(255, 248, 250, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+.analyze-panel {
+  width: 600rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 42rpx 36rpx;
+  text-align: center;
+  box-shadow: 0 12rpx 40rpx rgba(255, 105, 180, 0.18);
+}
+
+.analyze-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #e91e63;
+  margin-bottom: 14rpx;
+}
+
+.analyze-subtitle {
+  font-size: 26rpx;
+  color: #777;
+  margin-bottom: 28rpx;
+}
+
+.progress-track {
+  height: 18rpx;
+  background: #f7dce6;
+  border-radius: 999rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffb6c1, #ff69b4);
+  border-radius: 999rpx;
+  transition: width 0.25s ease;
+}
+
+.progress-text {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 16rpx;
+}

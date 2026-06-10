@@ -1,6 +1,7 @@
 const api = require('../../utils/api');
 const app = getApp();
 const audioCtx = wx.createInnerAudioContext();
+var _switchingTrack = false;
 
 var FALLBACK_LIST = [
   { id: 1, name: '吹风机', icon: '💨', category: '白噪音' },
@@ -40,6 +41,7 @@ Page({
       that.setData({ isPlaying: false, playState: 'paused' });
     });
     audioCtx.onStop(function() {
+      if (_switchingTrack) return;
       that.setData({ isPlaying: false, playState: 'idle', activeId: null, activeName: '' });
     });
     audioCtx.onEnded(function() {
@@ -74,6 +76,7 @@ Page({
         audioCtx.play();
       }
     } else {
+      _switchingTrack = true;
       audioCtx.stop();
       audioCtx.src = app.globalData.apiBase + '/noise/' + id + '/stream';
       audioCtx.title = item.name;
@@ -83,6 +86,7 @@ Page({
         isPlaying: false,
         playState: 'loading',
       });
+      setTimeout(function() { _switchingTrack = false; }, 300);
       audioCtx.play();
     }
   },

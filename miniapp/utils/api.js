@@ -34,7 +34,7 @@ function request(method, path, data = {}, options = {}) {
   });
 }
 
-function uploadFile(path, filePath, formData = {}) {
+function uploadFile(path, filePath, formData = {}, options = {}) {
   return new Promise((resolve, reject) => {
     var globalData = getGlobalData();
     const header = {};
@@ -48,6 +48,7 @@ function uploadFile(path, filePath, formData = {}) {
       name: 'audio',
       header: header,
       formData: formData,
+      ...options,
       success(res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           resolve(JSON.parse(res.data));
