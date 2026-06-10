@@ -16,6 +16,7 @@ except ImportError:
 from app.config import settings
 
 CRY_TYPES = ["饥饿", "尿布不适", "疲倦", "疼痛", "需要安抚", "其他"]
+CALIBRATION_WEIGHTS = np.array([1.4, 1.2, 1.05, 0.95, 1.0, 1.0], dtype=np.float32)
 
 
 def _extract_mfcc_features(mfcc):
@@ -94,6 +95,7 @@ class CryClassifier:
             "model_type": self._model_type or "random_fallback",
             "class_count": len(self._labels),
             "labels": self._labels,
+            "calibration_weights": CALIBRATION_WEIGHTS.round(3).tolist(),
             "sklearn_loaded": self._sklearn_model is not None,
             "onnxruntime_available": ort is not None,
             "onnx_loaded": self._session is not None,
@@ -110,13 +112,19 @@ class CryClassifier:
         classes = self._sklearn_model.classes_
 
         results = []
+        weighted_probs = []
         for i, cls_idx in enumerate(classes):
             idx = int(cls_idx)
             if idx < len(self._labels):
-                results.append({
-                    "type": self._labels[idx],
-                    "confidence": round(float(probs[i]), 4),
-                })
+                calibrated = float(probs[i]) * float(CALIBRATION_WEIGHTS[idx])
+                weighted_probs.append((idx, calibrated))
+
+        total = sum(prob for _, prob in weighted_probs) or 1.0
+        for idx, prob in weighted_probs:
+            results.append({
+                "type": self._labels[idx],
+                "confidence": round(float(prob / total), 4),
+            })
         results.sort(key=lambda x: x["confidence"], reverse=True)
         return results
 
