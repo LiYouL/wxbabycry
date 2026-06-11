@@ -5,8 +5,6 @@ from sqlalchemy import select
 from app.database import get_db
 from app.models.baby import Baby
 from app.models.cry_record import CryRecord
-from app.services.audio_processor import process_audio, AudioProcessError
-from app.services.cry_classifier import classifier
 from app.services.ai_client import generate_advice
 from app.schemas.cry import CryRecognizeResponse, SecondaryType, CryAdvice
 from app.config import settings
@@ -18,6 +16,18 @@ from typing import Optional
 
 router = APIRouter(prefix="/api/cry", tags=["cry"])
 logger = logging.getLogger(__name__)
+
+
+def _get_audio_processor():
+    from app.services.audio_processor import process_audio, AudioProcessError
+
+    return process_audio, AudioProcessError
+
+
+def _get_classifier():
+    from app.services.cry_classifier import classifier
+
+    return classifier
 
 
 @router.post("/recognize", response_model=CryRecognizeResponse)
@@ -32,16 +42,17 @@ async def recognize_cry(
         raise HTTPException(status_code=400, detail="未收到音频数据")
 
     # 2. Process audio → MFCC
+    process_audio, audio_process_error = _get_audio_processor()
     try:
         mfcc = process_audio(audio_bytes, audio.filename or "recording.mp3")
-    except AudioProcessError as e:
+    except audio_process_error as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception:
         logger.exception("Failed to process uploaded cry audio")
         raise HTTPException(status_code=400, detail="音频格式无法识别，请重新录制后再试")
 
     # 3. CNN classification
-    predictions = classifier.predict(mfcc)
+    predictions = _get_classifier().predict(mfcc)
 
     primary = predictions[0]
     secondary = [

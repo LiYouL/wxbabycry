@@ -38,11 +38,34 @@ function uploadFile(path, filePath, formData = {}, options = {}) {
   return new Promise((resolve, reject) => {
     var globalData = getGlobalData();
     const header = {};
+    var timeoutMs = options.timeout || 25000;
+    var settled = false;
+    var uploadTask = null;
+    var timeoutTimer = null;
     if (globalData.token) {
       header['Authorization'] = 'Bearer ' + globalData.token;
     }
 
-    wx.uploadFile({
+    function finish(callback, value) {
+      if (settled) return;
+      settled = true;
+      if (timeoutTimer) clearTimeout(timeoutTimer);
+      callback(value);
+    }
+
+    if (timeoutMs > 0) {
+      timeoutTimer = setTimeout(function() {
+        finish(reject, {
+          errMsg: 'uploadFile:fail timeout',
+          detail: '云端分析超时，请稍后重试',
+        });
+        if (uploadTask && uploadTask.abort) {
+          uploadTask.abort();
+        }
+      }, timeoutMs);
+    }
+
+    uploadTask = wx.uploadFile({
       url: globalData.apiBase + path,
       filePath: filePath,
       name: 'audio',
@@ -58,13 +81,13 @@ function uploadFile(path, filePath, formData = {}, options = {}) {
         }
 
         if (res.statusCode >= 200 && res.statusCode < 300) {
-          resolve(body);
+          finish(resolve, body);
         } else {
-          reject(body);
+          finish(reject, body);
         }
       },
       fail(err) {
-        reject(err);
+        finish(reject, err);
       },
     });
   });
