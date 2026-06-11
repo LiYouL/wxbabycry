@@ -89,6 +89,9 @@ async def recognize_cry(
         advice=advice,
     )
 
+    if not settings.persist_cry_records:
+        return response
+
     # 6. Save recognition record. Storage/DB failures should not block the user
     # from seeing the recognition result.
     try:

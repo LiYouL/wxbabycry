@@ -46,7 +46,7 @@ def build_prompt(cry_type: str, confidence: float, baby_info: Optional[dict]) ->
 async def generate_advice(
     cry_type: str, confidence: float, baby_info: Optional[dict] = None
 ) -> CryAdvice:
-    if not settings.anthropic_api_key:
+    if not settings.enable_ai_advice or not settings.anthropic_api_key:
         return _fallback_advice(cry_type)
 
     prompt = build_prompt(cry_type, confidence, baby_info)

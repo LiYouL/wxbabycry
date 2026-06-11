@@ -1,7 +1,7 @@
 # backend/app/services/audio_processor.py
 import librosa
 import numpy as np
-from pydub import AudioSegment
+import soundfile as sf
 import io
 from app.config import settings
 
@@ -10,27 +10,41 @@ class AudioProcessError(Exception):
     pass
 
 
-def convert_to_wav(audio_bytes: bytes, original_format: str = "mp3") -> bytes:
-    audio = AudioSegment.from_file(io.BytesIO(audio_bytes), format=original_format)
-    buf = io.BytesIO()
-    audio.export(buf, format="wav")
-    buf.seek(0)
-    return buf.read()
+def load_audio_signal(audio_bytes: bytes, original_format: str = "mp3") -> tuple:
+    """Load uploaded audio as mono float32 at 16 kHz without extra re-encoding."""
+    fmt = original_format.lower()
+    if fmt in ("wav", "wave", "flac", "ogg"):
+        y, sr = sf.read(io.BytesIO(audio_bytes), dtype="float32", always_2d=False)
+        if y.ndim > 1:
+            y = np.mean(y, axis=1)
+        if sr != 16000:
+            y = librosa.resample(y, orig_sr=sr, target_sr=16000)
+            sr = 16000
+        return y.astype(np.float32), sr
+
+    from pydub import AudioSegment
+
+    audio = AudioSegment.from_file(io.BytesIO(audio_bytes), format=fmt)
+    audio = audio.set_channels(1).set_frame_rate(16000)
+    samples = np.array(audio.get_array_of_samples()).astype(np.float32)
+    scale = float(1 << (8 * audio.sample_width - 1))
+    y = samples / max(scale, 1.0)
+    return y.astype(np.float32), 16000
 
 
-def validate_duration(y: np.ndarray, sr: int) -> None:
+def validate_duration(y: np.ndarray, sr: int) -> np.ndarray:
     duration = len(y) / sr
     if duration < settings.min_record_seconds:
         raise AudioProcessError(
             f"录音时长不足 {settings.min_record_seconds} 秒，请重新录制"
         )
     if duration > settings.max_record_seconds:
-        y = y[: int(sr * settings.max_record_seconds)]
+        return y[: int(sr * settings.max_record_seconds)]
+    return y
 
 
 def has_audio(y: np.ndarray, sr: int) -> bool:
-    rms = librosa.feature.rms(y=y)
-    return float(np.mean(rms)) > 0.005
+    return float(np.sqrt(np.mean(np.square(y)))) > 0.005
 
 
 def extract_mfcc(y: np.ndarray, sr: int, n_mfcc: int = 40) -> np.ndarray:
@@ -40,12 +54,9 @@ def extract_mfcc(y: np.ndarray, sr: int, n_mfcc: int = 40) -> np.ndarray:
 
 def process_audio(audio_bytes: bytes, filename: str = "recording.mp3") -> np.ndarray:
     fmt = filename.rsplit(".", 1)[-1] if "." in filename else "mp3"
-    wav_bytes = convert_to_wav(audio_bytes, fmt)
+    y, sr = load_audio_signal(audio_bytes, fmt)
 
-    y, sr = librosa.load(io.BytesIO(wav_bytes), sr=16000, mono=True)
-
-    validate_duration(y, sr)
-
+    y = validate_duration(y, sr)
     if not has_audio(y, sr):
         raise AudioProcessError("未检测到有效声音，请靠近婴儿重新录音")
 
